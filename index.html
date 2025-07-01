@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro Cyberpunk Game</title>
+  <style>
+    body {
+      background: #0f1021;
+      color: #00fff7;
+      font-family: 'Press Start 2P', monospace, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #gameContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    canvas {
+      background: #1a1a2e;
+      border: 4px solid #00fff7;
+      box-shadow: 0 0 40px #00fff7;
+      margin-bottom: 16px;
+    }
+    #startBtn {
+      background: #00fff7;
+      color: #0f1021;
+      border: none;
+      padding: 12px 32px;
+      font-size: 1.2em;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #00fff7;
+      transition: background 0.2s;
+    }
+    #startBtn:hover {
+      background: #ff00c8;
+      color: #fff;
+    }
+    #timer {
+      font-size: 1.5em;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="gameContainer">
+    <div id="instructions" style="background:#18192b;border:2px solid #00fff7;padding:16px 24px;margin-bottom:16px;border-radius:10px;max-width:480px;box-shadow:0 0 20px #00fff7;">
+      <h2 style="color:#ff00c8;margin-top:0;font-size:1.1em;">Spielanleitung</h2>
+      <ul style="padding-left:18px;line-height:2;">
+        <li>Bewege deinen Spieler mit den <b>Pfeiltasten</b> oder <b>WASD</b>.</li>
+        <li>Sammle die leuchtenden <b>Snippets</b>, bevor sie verschwinden.</li>
+        <li>Jede Farbe hat einen anderen Wert:</li>
+        <ul style="padding-left:18px;line-height:2;">
+          <li style="color:#00fff7;">Cyan: 3 Punkte</li>
+          <li style="color:#fffb00;">Gelb: 2 Punkte</li>
+          <li style="color:#00ff85;">Grün: 1 Punkt</li>
+          <li style="color:#ff0033;">Rot: friert dich ein</li>
+        </ul>
+        <li>Berühre nicht den Rand, Hindernisse oder rote Snippets! Sonst frierst du kurz ein.</li>
+      </ul>
+    </div>
+    <button id="startBtn" style="margin-bottom:32px;background:#00fff7;color:#0f1021;border:none;padding:12px 32px;font-size:1.2em;font-family:inherit;cursor:pointer;border-radius:8px;box-shadow:0 0 10px #00fff7;transition:background 0.2s;">START</button>
+    <div id="gameBox" style="display:none;flex-direction:column;align-items:center;">
+      <div id="score"></div>
+      <div id="timer">30 seconds</div>
+      <div style="display:flex;flex-direction:row;align-items:flex-start;">
+        <canvas id="gameCanvas" width="640" height="480"></canvas>
+        <div id="legend" style="margin-left:32px;background:#18192b;border:2px solid #00fff7;padding:16px 18px;border-radius:10px;min-width:120px;box-shadow:0 0 10px #00fff7;">
+          <div style="font-weight:bold;color:#00fff7;margin-bottom:10px;">Werte</div>
+          <div style="display:flex;align-items:center;margin-bottom:10px;"><span style="display:inline-block;width:18px;height:18px;background:#00fff7;border-radius:50%;margin-right:10px;"></span>3 Punkte</div>
+          <div style="display:flex;align-items:center;margin-bottom:10px;"><span style="display:inline-block;width:18px;height:18px;background:#fffb00;border-radius:50%;margin-right:10px;"></span>2 Punkte</div>
+          <div style="display:flex;align-items:center;margin-bottom:10px;"><span style="display:inline-block;width:18px;height:18px;background:#00ff85;border-radius:50%;margin-right:10px;"></span>1 Punkt</div>
+          <div style="display:flex;align-items:center;"><span style="display:inline-block;width:18px;height:18px;background:#ff0033;border-radius:50%;margin-right:10px;"></span>friert dich ein</div>
+        </div>
+      </div>
+      <div id="gameOverScreen" style="display:none;position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgba(15,16,33,0.96);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="background:#18192b;border:2px solid #00fff7;padding:32px 48px;border-radius:16px;box-shadow:0 0 40px #00fff7;display:flex;flex-direction:column;align-items:center;">
+          <h2 style="color:#ff00c8;margin-bottom:24px;">Spiel beendet!</h2>
+          <div id="finalScore" style="font-size:2em;color:#00fff7;margin-bottom:24px;text-shadow:0 0 10px #00fff7;"></div>
+          <button id="restartBtn" style="background:#00fff7;color:#0f1021;border:none;padding:12px 32px;font-size:1.2em;font-family:inherit;cursor:pointer;border-radius:8px;box-shadow:0 0 10px #00fff7;transition:background 0.2s;">Nochmal spielen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html> 
